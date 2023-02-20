@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>WEATHER</title>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
+</head>
+
+<body
+    style="background: url(https://i.ibb.co/jZvk8Xz/pexels-pixabay-314726.jpg); background-repeat: repeat-y; background-size: cover; font-family: 'Mukta', sans-serif; background-attachment: fixed;">
+    <div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div
+                style="margin: auto; margin-top: 0; margin-bottom: 0; text-align: center; padding-top: 5%; padding-bottom: 5%;">
+                <input type="text" name="city" placeholder="Search City (Istanbul, Ankara, Warsaw, Palermo, Seoul...)"
+                    style="width: 50%; height: 6vh; margin: auto; margin-top: 0; margin-bottom: 0; border: none; border-radius: 10px; font-size: 1.3rem; text-align: center; opacity: 0.5;">
+                <button type="submit"
+                    style="width: 25%; height: 6vh; display: block; margin: auto; margin-top: 0; margin-bottom: 0; border: none; border-radius: 10px; font-size: 1.3rem; color: rgba(0, 0, 0, 0.9); background: url(https://i.ibb.co/PhYfrLG/photo-1617957718614-8c23f060c2d0.jpg); cursor: pointer;">What's the weather like?</button>
+            </div>
+        </form>
+        <div style="background-color: rgba(255, 255, 255, 0.3); width: 70%; margin: auto;">
+            {% if data.country_code %}
+            <div>
+                <h1
+                    style="border-bottom: 1px solid black; padding-left: 10%; padding-top: 10px; margin-bottom: 0; font-size: 3rem;">
+                    {{data.city}}<span style="float: right; padding-right: 10%;"><span
+                            style="font-size: 0.8rem;">Country Code:
+                        </span>{{data.country_code}}</span></h1>
+                <div style="width: 70%; margin: auto;">
+                    <div style="margin: auto; width: 40%; margin-bottom: 0;">
+                        <h2 style="text-align: center; margin-bottom: 0; margin-top: 0; font-size: 1.2rem;">Coordinates
+                        </h2>
+                        <h3 style="float: left; margin-top: 0; font-size: 0.8rem; padding-left: 20px;">Latitude: <span
+                                style="font-size: 1rem;">{{data.latitude}}</span>
+                        </h3>
+                        <h3 style="float: right; margin-top: 0; font-size: 0.8rem; padding-right: 20px;">Longitude:
+                            <span style="font-size: 1rem;">{{data.longitude}}</span>
+                        </h3>
+                    </div>
+                    <br><br>
+                    <hr style="margin-top: 0; margin-bottom: 0;">
+                    <div style="margin: auto; width: 80%; display: block; margin-top: 0;">
+                        <h2 style="text-align: center; margin-bottom: 0; margin-top: 0;">Weather</h2>
+                        <h3 style="text-align: center; margin-bottom: 0; margin-top: 0;">{{data.weather_main}} <span
+                                style="font-size: 0.8rem; font-style: italic;">{{data.weather_desc}}</span></h3>
+                        <img src="http://openweathermap.org/img/wn/{{data.weather_icon}}@4x.png" alt=""
+                            style="display: block; margin: auto; margin-top: 0; margin-bottom: 0;">
+                    </div>
+                    <hr style="margin-top: 0; margin-bottom: 0;">
+                    <div style="margin: auto; width: 80%; display: block; margin-top: 0; margin-bottom: 0;">
+                        <h2 style="text-align: center; margin-bottom: 0; margin-top: 0;">Temperature</h2>
+                        <h3 style="text-align: center; margin-bottom: 0; margin-top: 0; font-size: 3rem;">{{data.temp}}
+                            <span style="font-size: 0.8rem; font-style: italic;">feels like {{data.feels_like}}</span>
+                        </h3>
+                        <h4 style="float: left; margin-top: 0; margin-bottom: 0;">Minimum Temperature: <span
+                                style="font-size: 1.2rem;">{{data.mintemp}}</span></h4>
+                        <h4 style="float: right; margin-top: 0; margin-bottom: 0;">Maximum Temperature: <span
+                                style="font-size: 1.2rem;">{{data.maxtemp}}</span></h4>
+                    </div>
+                    <br><br>
+                    <hr>
+                    <div style="width: 80%; margin: auto; margin-top: 0; margin-bottom: 0;">
+                        <div style="width: 40%; float: left;">
+                            <p style="text-align: center; font-weight: bold; font-style: italic;"><img
+                                    src="https://i.pinimg.com/originals/2b/bb/4b/2bbb4b763dd7b55a6d37d9f0e19d5091.png"
+                                    alt="" style="width: 20%; display: inline-block;">{{data.sunrise_local}}</p>
+                        </div>
+                        <div style="width: 40%; float: right;">
+                            <p style="text-align: center; font-weight: bold; font-style: italic;"><img
+                                    src="https://i.pinimg.com/originals/bb/4e/f0/bb4ef095770f48298488e18512c95531.png"
+                                    alt="" style="width: 20%; display: inline-block;">{{data.sunset_local}}</p>
+                        </div>
+                    </div>
+                    <br><br><br><br>
+                    <hr style="margin-top: 0; margin-bottom: 5px;">
+                    <div style="width: 60%; margin: auto; margin-top: 0; margin-bottom: 0;">
+                        <h5 style="text-align: center; margin-bottom: 0; margin-top: 0;">Atmospheric pressure on the sea
+                            level:<img
+                                src="https://i.pinimg.com/originals/7b/e3/26/7be326ff5f813e0831f7653d99d8bcb7.png"
+                                style="width: 10%;" alt=""><span style="font-size: 1.3rem;">{{data.pressure}}hPa</span>
+                        </h5>
+                        <h5 style="text-align: center; margin-bottom: 0; margin-top: 0;">Humidity:<img
+                                src="https://i.pinimg.com/originals/db/22/87/db22870f2787db7875b4b2c33499d80e.png"
+                                style="width: 10%;" alt=""><span style="font-size: 1.3rem;">{{data.humidity}}%</span>
+                        </h5>
+                    </div>
+                    <hr style="margin-top: 0; margin-bottom: 0;">
+                    <div style="display: inline-block; width: 49%; margin-top: 0;">
+                        <h5 style="margin-top: 0; margin-bottom: 0; text-align: center;">Visibility<img
+                                src="https://i.pinimg.com/originals/9a/f4/1b/9af41b61711c204112340ae079bc2069.png"
+                                alt="" style="width: 10%;"><span
+                                style="font-size: 1.4rem;">{{data.visibility}}</span>meters</h5>
+                        <h5 style="margin-top: 0; margin-bottom: 0; text-align: center;">Cloudiness<img
+                                src="https://i.pinimg.com/originals/86/b0/f3/86b0f3df10a0e29df31805201fd91897.png"
+                                alt="" style="width: 10%;"><span style="font-size: 1.4rem;">{{data.clouds}}%</span></h5>
+                    </div>
+                    <div style="display: inline-block; width: 49%; margin-top: 0; margin-bottom: 5px;">
+                        <h5 style="margin-top: 0; margin-bottom: 0; text-align: center;">Wind speed<img
+                                src="https://i.pinimg.com/originals/53/9c/19/539c19581285c97789d77a8b3062af8f.png"
+                                alt="" style="width: 15%;"> <span
+                                style="font-size: 1.4rem;">{{data.wind_speed}}</span>meter/sec</h5>
+                        <h5 style="margin-top: 0; margin-bottom: 0; text-align: center;">Wind direction<img
+                                src="https://i.pinimg.com/originals/28/4b/08/284b08d341b34880422755458e43a824.png"
+                                alt="" style="width: 15%;"> <span style="font-size: 1.4rem;">{{data.wind_deg}}°</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+</body>
+</html>
